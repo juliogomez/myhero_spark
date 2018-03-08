@@ -1,0 +1,18 @@
+version: '2'
+services:
+  myhero-spark:
+    build: .
+    image: juliocisco/myhero-spark
+    ports:
+     - "15003:5000"
+    environment:
+     - myhero_app_key=${MYHERO_APP_KEY}
+     - myhero_app_server=http://myhero-app:5000
+     - myhero_spark_bot_url=${NGROK_URL}
+     - myhero_spark_bot_secret=${MYHERO_SPARK_BOT_KEY}
+     - myhero_spark_bot_email=${MYHERO_SPARK_BOT_EMAIL}
+     - spark_token=${MYHERO_SPARK_BOT_TOKEN}
+networks:
+  default:
+     external:
+       name: myherodata_default

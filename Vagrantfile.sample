@@ -1,0 +1,41 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+# Specify Vagrant version and Vagrant API version
+Vagrant.require_version ">= 2.0.1"
+VAGRANTFILE_API_VERSION = "2"
+ENV['VAGRANT_DEFAULT_PROVIDER'] = 'docker'
+
+# Create and configure the Docker container(s)
+Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
+
+  config.ssh.insert_key = false
+
+  # Configure the Docker provider for Vagrant
+  config.vm.provider "docker" do |docker|
+
+    # Specify the Docker image to use
+    # or the location of the Dockerfile
+    #docker.image = "nginx"
+  	docker.build_dir = "."
+
+    # Specify port mappings
+    # If omitted, no ports are mapped!
+    docker.ports = ['15003:5000']
+
+    docker.link("myhero-app:myhero-app")
+
+    # Environment Variables for Development
+    docker.env = {
+      "myhero_app_key" => "DevApp",
+      "myhero_app_server" => "http://myhero-app:5000",
+      "myhero_spark_bot_url" => "<ENTER NGROK URL>",
+      "myhero_spark_bot_secret" => "DevBot",
+      "myhero_spark_bot_email" => "<ENTER EMAIL ADDRESS FOR SPARK ACCOUNT>",
+      "spark_token" => "<ENTER SPARK DEVELOPER TOKEN>"
+    }
+
+    # Specify a friendly name for the Docker container
+    docker.name = 'myhero-spark'
+  end
+end
