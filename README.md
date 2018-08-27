@@ -1,6 +1,6 @@
-# MyHero Spark Bot
+# MyHero Spark / WebEx Teams Bot
 
-This is the a Spark Bot for a basic microservice demo application.
+This is the a WebEx Teams Bot for a basic microservice demo application.
 This provides an interactive chat service for a voting system where users can vote for their favorite movie superhero.
 
 Details on deploying the entire demo to a Kubernetes cluster can be found at
@@ -16,8 +16,8 @@ Other services are:
 * UI - [juliogomez/myhero_ui](https://github.com/juliogomez/myhero_ui)
 * Ernst - [juliogomez/myhero_ernst](https://github.com/juliogomez/myhero_ernst)
   * Optional Service used along with an MQTT server when App is in "queue" mode
-* Spark Bot - [juliogomez/myhero_spark](https://github.com/juliogomez/myhero_spark)
-  * Optional Service that allows voting through IM/Chat with a Cisco Spark Bot
+* WebEx Teams Bot - [juliogomez/myhero_spark](https://github.com/juliogomez/myhero_spark)
+  * Optional Service that allows voting through IM/Chat with a Cisco WebEx Teams Bot
 
 
 The docker containers are available at
@@ -27,20 +27,20 @@ The docker containers are available at
 * UI - [juliocisco/myhero_ui](https://hub.docker.com/r/juliocisco/myhero-ui)
 * Ernst - [juliocisco/myhero_ernst](https://hub.docker.com/r/juliocisco/myhero-ernst)
   * Optional Service used along with an MQTT server when App is in "queue" mode
-* Spark Bot - [juliocisco/myhero_spark](https://hub.docker.com/r/juliocisco/myhero-spark)
-  * Optional Service that allows voting through IM/Chat with a Cisco Spark Bot
+* WebEx Teams Bot - [juliocisco/myhero_spark](https://hub.docker.com/r/juliocisco/myhero-spark)
+  * Optional Service that allows voting through IM/Chat with a Cisco WebEx Teams Bot
 
-# Spark Developer Account Requirement
+# WebEx Teams Developer Account Requirement
 
-In order to use this service, you will need a Cisco Spark Account to use for the bot.  The bot is built for ease of use, meaning any message to the account used to create the Bot will be acted on and replied to.  This means you'll need to create a new Spark account for the demo.  
+In order to use this service, you will need a Cisco WebEx Teams Account to use for the bot.  The bot is built for ease of use, meaning any message to the account used to create the Bot will be acted on and replied to.  This means you'll need to create a new WebEx Teams account for the demo.  
 
-Creating an account is free and only requires a working email account (each Spark Account needs a unique email address).  Visit [http://www.ciscospark.com](http://www.ciscospark.com) to signup for an account.
+Creating an account is free and only requires a working email account (each WebEx Teams Account needs a unique email address).  Visit [www.webex.com/products/teams](https://www.webex.com/products/teams/index.html) to signup for an account.
 
-Developer access to Spark is also free and information is available at [http://developer.ciscospark.com](http://developer.ciscospark.com).
+Developer access to WebEx Teams is also free and information is available at [http://developer.webex.com](http://developer.webex.com).
 
-In order to access the APIs of Spark, this bot needs the Developer Token for your account.  To find it:
+In order to access the APIs of WebEx Teams, this bot needs the Developer Token for your account.  To find it:
 
-* Go to [http://developer.ciscospark.com](http://developer.ciscospark.com) and login with the credentials for your account.
+* Go to [http://developer.webex.com](http://developer.webex.com) and login with the credentials for your account.
 * In the upper right corner click on your picture and click `Copy` to copy your Access Token to your clipboard
 * Make a note of this someplace for when you need it later in the setup
   * **If you save this in a file, such as in the `.env` you will use later, be sure not to commit this file.  Otherwise your credentials will be availabe to anyone who might look at your code later on GitHub.**
@@ -63,11 +63,11 @@ In order to run, the service needs several pieces of information to be provided:
 
 * App Server Address
 * App Server Authentication Key to Use
-* Spark Bot Authentication Key to Require in API Calls
-* Spark Bot URL
-* Spark Account Details
-  * Spark Account Email
-  * Spark Account Token
+* WebEx Teams Bot Authentication Key to Require in API Calls
+* WebEx Teams Bot URL
+* WebEx Teams Account Details
+  * WebEx Teams Account Email
+  * WebEx Teams Account Token
 
 These details can be provided in one of three ways.
 
@@ -113,8 +113,8 @@ A command line argument overrides an environment variable, and raw input is only
 Upon startup, the service registers a webhook to send all new messages to the service address.
 
 
-## Interacting with the Spark Bot
-The Spark Bot is a very simple interface that is designed to make it intuitive to use.  Simply send any message to the Spark Bot Email Address to have the bot reply back with some instructions on how to access the features.
+## Interacting with the WebEx Teams Bot
+The WebEx Teams Bot is a very simple interface that is designed to make it intuitive to use.  Simply send any message to the WebEx Teams Bot Email Address to have the bot reply back with some instructions on how to access the features.
 
 The bot is deisgned to look for commands to act on, and provide the basic help message for anything else.  The commands are:
 
@@ -131,11 +131,11 @@ The bot is deisgned to look for commands to act on, and provide the basic help m
 
 # /
 
-The main service API is at the root of the applciation and is what is used for the Spark Webhooks.
+The main service API is at the root of the applciation and is what is used for the WebEx Teams Webhooks.
 
 # /hello/:email 
 
-There is an API call that can be leveraged to have the Spark Bot initiate a chat session with a user.  This API responds to GET requests and then will send a Spark message to the email provided.  
+There is an API call that can be leveraged to have the WebEx Teams Bot initiate a chat session with a user.  This API responds to GET requests and then will send a WebEx Teams message to the email provided.  
 
 Example usage
 
@@ -145,7 +145,7 @@ curl http://myhero-spark.domain.local/hello/user@email.com
 
 # /health 
 
-This is an API call that can be used to test if the Spark Bot service is functioning properly.
+This is an API call that can be used to test if the WebEx Teams Bot service is functioning properly.
   
 ```
 curl -v http://myhero-spark.domain.local/health 
@@ -172,7 +172,7 @@ I've included the configuration files needed to do local development with docker
 
 * [Docker](https://www.docker.com/community-edition)
 
-Before running `docker-compose up` you will need to finish the .env file configuration by adding the Spark Account Email and Token to the environment variables used by the container.  To do this:
+Before running `docker-compose up` you will need to finish the .env file configuration by adding the WebEx Teams Account Email and Token to the environment variables used by the container.  To do this:
 
 * Make a copy of .env.template to use
   * `cp .env.template .env`
@@ -196,7 +196,7 @@ I've included the configuration files needed to do local development with Vagran
 * [Vagrant 2.0.1 or higher](https://www.vagrantup.com/downloads.html)
 * [Docker](https://www.docker.com/community-edition)
 
-Before running `vagrant up` you will need to finish the Vagrant file configuration by adding the Spark Account Email and Token to the environment variables used by the container.  To do this:
+Before running `vagrant up` you will need to finish the Vagrant file configuration by adding the WebEx Teams Account Email and Token to the environment variables used by the container.  To do this:
 
 * Make a copy of Vagrantfile.sample to use
   * `cp Vagrantfile.sample Vagrantfile`
