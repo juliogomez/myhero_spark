@@ -35,7 +35,7 @@ import requests, json, re
 
 app = Flask(__name__)
 
-spark_host = "https://api.ciscospark.com/"
+spark_host = "https://webexapis.com/"
 spark_headers = {}
 spark_headers["Content-type"] = "application/json"
 app_headers = {}

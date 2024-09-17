@@ -1,11 +1,12 @@
-FROM alpine:3.11
+FROM alpine:3.8
 MAINTAINER Julio Gomez <jgomez2@cisco.com>
 
 EXPOSE 5000
 
 # Install basic utilities
 RUN apk add -U \
-        python \
+#	 remove python as its package is not available for linux/amd64 required in GKE deployments
+#        python \
         py-pip \
         ca-certificates \
   && rm -rf /var/cache/apk/* \
